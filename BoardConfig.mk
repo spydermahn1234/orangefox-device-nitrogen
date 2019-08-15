@@ -1,6 +1,8 @@
 #
 # Copyright 2017 The Android Open Source Project
 #
+# Copyright (C) 2019-2020 OrangeFox Recovery Project
+#
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -22,6 +24,8 @@
 # bitrot and build breakages. Building a component unconditionally does
 # *not* include it on all devices, so it is safe even with hardware-specific
 # components.
+
+LOCAL_PATH := device/xiaomi/nitrogen
 
 # Architecture
 TARGET_ARCH := arm64
@@ -60,7 +64,22 @@ BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_PAGESIZE := 4096
 BOARD_KERNEL_TAGS_OFFSET := 0x00000100
 BOARD_RAMDISK_OFFSET     := 0x01000000
-TARGET_PREBUILT_KERNEL := device/xiaomi/tulip/prebuilt/Image.gz-dtb
+
+ifeq ($(FOX_BUILD_FULL_KERNEL_SOURCES),1)
+TARGET_KERNEL_APPEND_DTB := true
+BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
+TARGET_KERNEL_CONFIG := nitrogen-perf_defconfig
+TARGET_KERNEL_SOURCE := kernel/xiaomi/nitrogen
+else
+TARGET_PREBUILT_KERNEL := $(LOCAL_PATH)/prebuilt/Image.gz-dtb
+ifeq ($(FOX_USE_STOCK_KERNEL),1)
+TARGET_PREBUILT_KERNEL := $(LOCAL_PATH)/prebuilt/Image-stock.gz-dtb
+endif
+PRODUCT_COPY_FILES += \
+    $(TARGET_PREBUILT_KERNEL):kernel
+endif
+
+TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/recovery.fstab
 
 # Platform
 TARGET_BOARD_PLATFORM := sdm660
@@ -73,9 +92,9 @@ BOARD_BOOTIMAGE_PARTITION_SIZE := 67108864
 BOARD_CACHEIMAGE_PARTITION_SIZE := 268435456
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 67108864
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 3221225472
-BOARD_USERDATAIMAGE_PARTITION_SIZE := 55155080704
+BOARD_USERDATAIMAGE_PARTITION_SIZE := 12884901888
 BOARD_USERDATAIMAGE_FILE_SYSTEM_TYPE := ext4
-BOARD_VENDORIMAGE_PARTITION_SIZE := 2147483648
+BOARD_VENDORIMAGE_PARTITION_SIZE := 3221225472
 
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
@@ -91,19 +110,20 @@ AB_OTA_UPDATER := false
 LZMA_RAMDISK_TARGETS := recovery
 
 # TWRP specific build flags
-TARGET_OTA_ASSERT_DEVICE := tulip
+TARGET_OTA_ASSERT_DEVICE := nitrogen
 RECOVERY_SDCARD_ON_DATA := true
 TARGET_RECOVERY_QCOM_RTC_FIX := true
 TW_BRIGHTNESS_PATH := "/sys/class/leds/lcd-backlight/brightness"
 TW_EXCLUDE_DEFAULT_USB_INIT := true
 TW_EXTRA_LANGUAGES := true
+TW_DEFAULT_LANGUAGE := en
 TW_INCLUDE_NTFS_3G := true
 TW_INPUT_BLACKLIST := "hbtp_vm"
-TW_MAX_BRIGHTNESS := 4095
+TW_MAX_BRIGHTNESS := 2047
+TW_DEFAULT_BRIGHTNESS := 850
 TW_THEME := portrait_hdpi
 TW_SCREEN_BLANK_ON_BOOT := true
-TW_Y_OFFSET := 87
-TW_H_OFFSET := -87
+TW_EXCLUDE_TWRPAPP := true
 TWRP_INCLUDE_LOGCAT := true
 TARGET_USES_LOGD := true
 
@@ -115,6 +135,12 @@ TW_INCLUDE_FUSE_EXFAT := true
 
 # NTFS Support
 TW_INCLUDE_FUSE_NTFS := true
-
-# Official
-PB_OFFICIAL := true
+#
+# Fix userdata decryption (vold)
+#TW_CRYPTO_SYSTEM_VOLD_MOUNT := vendor system
+#TW_CRYPTO_USE_SYSTEM_VOLD := \
+#    qseecomd \
+#    servicemanager \
+#    hwservicemanager \
+#    keymaster-3-0
+#
