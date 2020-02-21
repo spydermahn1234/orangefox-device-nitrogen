@@ -15,15 +15,15 @@
 /storage        ext4   /data/media/0                  		     		flags=display="Internal Storage";usermrf;backup=1;fsflags="bind";removable
 
 /vendor         ext4    /dev/block/bootdevice/by-name/vendor                  	flags=display="Vendor";backup=1;wipeingui
-/vendor_image  emmc   /dev/block/bootdevice/by-name/vendor			flags=display="Vendor_image";backup=1;flashimg=1
+/vendor_image   emmc   /dev/block/bootdevice/by-name/vendor			flags=display="Vendor_image";backup=1;flashimg=1
 
 /cust           ext4    /dev/block/bootdevice/by-name/cust                    	flags=display="Cust";backup=1;wipeingui
 /cust_image     emmc    /dev/block/bootdevice/by-name/cust                    	flags=display="Cust Image";backup=0;flashimg=1
 /firmware       vfat    /dev/block/bootdevice/by-name/modem                   	flags=display="Firmware";mounttodecrypt;fsflags=ro
 /misc           emmc    /dev/block/bootdevice/by-name/misc                    	flags=display="Misc"
-/persist        ext4    /dev/block/bootdevice/by-name/persist                 	flags=display="Persist";backup=1
 /persist_image  emmc    /dev/block/bootdevice/by-name/persist                 	flags=display="Persist Image";backup=1;flashimg=1
 /splash         emmc    /dev/block/bootdevice/by-name/splash                  	flags=display="Boot Logo";backup=1;flashimg=1
+/persist        ext4    /dev/block/bootdevice/by-name/persist                 	flags=display="Persist";backup=1
 
 /modem          emmc    /dev/block/bootdevice/by-name/modem                   	flags=backup=1;display="Modem"
 /bluetooth      emmc    /dev/block/bootdevice/by-name/bluetooth               	flags=backup=1;subpartitionof=/modem
