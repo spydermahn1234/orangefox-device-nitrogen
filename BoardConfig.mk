@@ -137,6 +137,12 @@ TW_INCLUDE_FUSE_EXFAT := true
 # NTFS Support
 TW_INCLUDE_FUSE_NTFS := true
 #
+# System as root
+BOARD_BUILD_SYSTEM_ROOT_IMAGE := true
+BOARD_SUPPRESS_SECURE_ERASE := true
+#
+# BOARD_ROOT_EXTRA_FOLDERS := bluetooth dsp firmware persist
+#
 # Fix userdata decryption (vold)
 #TW_CRYPTO_SYSTEM_VOLD_MOUNT := vendor system
 #TW_CRYPTO_USE_SYSTEM_VOLD := \
