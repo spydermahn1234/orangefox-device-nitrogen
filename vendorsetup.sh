@@ -19,9 +19,8 @@
 #
 FDEVICE="nitrogen"
 if [ "$1" = "$FDEVICE" -o "$FOX_BUILD_DEVICE" = "$FDEVICE" ]; then
-        export PLATFORM_VERSION="10.0.0"
+        export PLATFORM_VERSION="16.1.0"
 	export TW_DEFAULT_LANGUAGE="en"
-       	export OF_USE_LEGACY_CRYPTO=1
        	export OF_SCREEN_H=2160
       	export OF_USE_MAGISKBOOT=1
        	export OF_USE_MAGISKBOOT_FOR_ALL_PATCHES=1
@@ -29,7 +28,6 @@ if [ "$1" = "$FDEVICE" -o "$FOX_BUILD_DEVICE" = "$FDEVICE" ]; then
        	export OF_USE_NEW_MAGISKBOOT=1
        	export OF_REDUCE_DECRYPTION_TIMEOUT=1
        	export FOX_USE_LZMA_COMPRESSION=1
-	export OF_OTA_RES_DECRYPT=1
 	export OF_DONT_PATCH_ENCRYPTED_DEVICE=1
 	export FOX_USE_BASH_SHELL=1
 	export FOX_ASH_IS_BASH=1
@@ -38,9 +36,6 @@ if [ "$1" = "$FDEVICE" -o "$FOX_BUILD_DEVICE" = "$FDEVICE" ]; then
 	export FOX_USE_ZIP_BINARY=1
 	export FOX_REPLACE_BUSYBOX_PS=1
 	export OF_FLASHLIGHT_ENABLE=0
-
-        export OF_KEEP_DM_VERITY=1
-	export OF_DISABLE_FORCED_ENCRYPTION=1
 
 	# let's see what are our build VARs
 	if [ -n "$FOX_BUILD_LOG_FILE" -a -f "$FOX_BUILD_LOG_FILE" ]; then
