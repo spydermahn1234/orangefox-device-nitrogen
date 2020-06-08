@@ -6,7 +6,6 @@ on init
     chown system drmrpc /dev/qseecom
     chmod 0664 /dev/ion
     chown system system /dev/ion
-    install_keyring
 
 on fs
     wait /dev/block/platform/soc/${ro.boot.bootdevice}
