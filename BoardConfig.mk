@@ -47,11 +47,11 @@ TARGET_BOOTLOADER_BOARD_NAME := sdm660
 TARGET_NO_BOOTLOADER := true
 
 # Crypto
-TARGET_CRYPTFS_HW_PATH := vendor/qcom/opensource/commonsys/cryptfs_hw
-TARGET_HW_DISK_ENCRYPTION := true
-TW_INCLUDE_CRYPTO := true
-TW_INCLUDE_CRYPTO_FBE := true
-TW_INCLUDE_FBE := true
+#TARGET_CRYPTFS_HW_PATH := vendor/qcom/opensource/commonsys/cryptfs_hw
+#TARGET_HW_DISK_ENCRYPTION := true
+#TW_INCLUDE_CRYPTO := true
+#TW_INCLUDE_CRYPTO_FBE := true
+#TW_INCLUDE_FBE := true
 
 # Kernel
 BOARD_KERNEL_CMDLINE := console=ttyMSM0,115200,n8 androidboot.console=ttyMSM0 earlycon=msm_serial_dm,0xc170000
@@ -137,12 +137,12 @@ TW_INCLUDE_FUSE_EXFAT := true
 TW_INCLUDE_FUSE_NTFS := true
 #
 # Fix userdata decryption (vold)
-TW_CRYPTO_SYSTEM_VOLD_MOUNT := vendor system
-TW_CRYPTO_USE_SYSTEM_VOLD := \
-    qseecomd \
-    servicemanager \
-    hwservicemanager \
-    keymaster-3-0
+#TW_CRYPTO_SYSTEM_VOLD_MOUNT := vendor system
+#TW_CRYPTO_USE_SYSTEM_VOLD := \
+ #   qseecomd \
+  #  servicemanager \
+   # hwservicemanager \
+   # keymaster-3-0
 
 #SHRP_Variables
 SHRP_PATH := device/xiaomi/nitrogen
